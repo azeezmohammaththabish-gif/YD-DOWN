@@ -1,4 +1,8 @@
 @echo off
+REM ===== YouTube Downloader - Local Development Starter =====
+REM This script starts the app locally on your PC
+REM For online deployment (FREE), see README.md for Vercel + Render setup
+
 setlocal enabledelayedexpansion
 
 cd /d "%~dp0"
@@ -11,8 +15,10 @@ if "%PYEXE%"=="" (
 )
 
 if "%PYEXE%"=="" (
-  echo Python is not installed or not on PATH.
-  echo Install Python 3.10+ then try again.
+  echo.
+  echo ERROR: Python is not installed or not on PATH.
+  echo Install Python 3.10+ from python.org then try again.
+  echo.
   pause
   exit /b 1
 )
@@ -40,7 +46,18 @@ if errorlevel 1 (
 )
 
 REM ---- Start server (live reload) in its own window ----
-echo Starting server (live reload) at http://127.0.0.1:8000/
+echo.
+echo ========================================
+echo  YouTube Downloader (LOCAL)
+echo ========================================
+echo.
+echo Starting server at http://127.0.0.1:8000/
+echo (Live reload enabled - changes auto-restart)
+echo.
+echo To deploy ONLINE (FREE):
+echo - See README.md for Vercel + Render setup
+echo - Takes only 1 minute!
+echo.
 start "YouTube Downloader Server" cmd /k "cd /d \"%~dp0\" ^& call .venv\Scripts\activate.bat ^& python -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000"
 
 REM ---- Wait until server is ready, then open browser ----

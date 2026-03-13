@@ -1,3 +1,22 @@
+// ===== API Configuration (works with Vercel + Render setup) =====
+// Automatically detect backend API URL:
+// - Local dev: uses relative paths (/api/...)
+// - Vercel + Render: uses backend service URL from localStorage
+const API_URL = (() => {
+  // Check if backend URL is stored in localStorage (set by admin panel)
+  const stored = localStorage.getItem("BACKEND_API_URL");
+  if (stored) return stored;
+  
+  // For local dev, use relative paths
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    return "";
+  }
+  
+  // For Vercel deployment, you can set this in browser or use environment variable
+  // Default to same origin (if backend is on same domain)
+  return window.location.origin;
+})();
+
 const urlInput = document.getElementById("urlInput");
 const analyzeBtn = document.getElementById("analyzeBtn");
 const qualitySelect = document.getElementById("qualitySelect");
@@ -73,7 +92,10 @@ function statusPill(status) {
 }
 
 async function api(path, opts = {}) {
-  const res = await fetch(path, {
+  // Use API_URL prefix for all API calls
+  const fullPath = `${API_URL}${path}`;
+  
+  const res = await fetch(fullPath, {
     headers: { "Content-Type": "application/json" },
     ...opts,
   });
@@ -272,7 +294,8 @@ async function createDownload() {
     return;
   }
   const qs = new URLSearchParams({ url });
-  window.open(`/direct-download?${qs.toString()}`, "_blank", "noopener");
+  const downloadUrl = `${API_URL}/direct-download?${qs.toString()}`;
+  window.open(downloadUrl, "_blank", "noopener");
   setStatus("Download started in browser.");
 }
 
@@ -287,7 +310,7 @@ async function createDownloadWithSelector(formatSelector, preferredQuality, outp
   params.set("url", url);
   if (formatSelector) params.set("formatSelector", formatSelector);
   if (output) params.set("output", output);
-  const href = `/direct-download?${params.toString()}`;
+  const href = `${API_URL}/direct-download?${params.toString()}`;
   window.open(href, "_blank", "noopener");
   setStatus("Download started in browser.");
 }
@@ -449,7 +472,7 @@ playlistList.addEventListener("click", (e) => {
   const params = new URLSearchParams();
   params.set("url", url);
   params.set("output", out);
-  const href = `/direct-download?${params.toString()}`;
+  const href = `${API_URL}/direct-download?${params.toString()}`;
   window.open(href, "_blank", "noopener");
   setStatus("Playlist item download started in browser.");
 });
