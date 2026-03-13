@@ -20,8 +20,11 @@ Fast YouTube video downloader with **CRUD download history**. Ready to deploy on
 2. Click **New Project**
 3. Import your GitHub repo
 4. **Framework:** None (static/HTML)
-5. Click **Deploy**
-6. Your site is live! Copy the Vercel URL
+5. **Root Directory:** Leave empty
+6. Click **Deploy**
+7. Your site is live! Copy the Vercel URL
+
+**Note:** If you get a 404 error, the `vercel.json` file I added will fix it. Just push this file to GitHub and Vercel will auto-redeploy.
 
 ### Step 3: Connect Frontend to Backend
 1. Open your Vercel site
