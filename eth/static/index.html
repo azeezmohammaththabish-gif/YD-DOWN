@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Downloader</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <div class="logo">YD</div>
+          <div class="brandText">
+            <h1>YouTube Downloader</h1>
+            <p>Original quality, no extra compression. Fast and smooth.</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="card">
+          <div class="row">
+            <label class="label" for="urlInput">YouTube URL</label>
+            <div class="inputGroup">
+              <input
+                id="urlInput"
+                class="input"
+                placeholder="Paste a YouTube link (e.g. https://www.youtube.com/watch?v=...)"
+                autocomplete="off"
+              />
+              <button id="analyzeBtn" class="btn btnSecondary" type="button">
+                Analyze
+              </button>
+            </div>
+          </div>
+
+          <div id="preview" class="preview hidden">
+            <img id="thumb" class="thumb" alt="thumbnail" />
+            <div class="previewText">
+              <div id="previewTitle" class="previewTitle"></div>
+              <div id="previewMeta" class="previewMeta"></div>
+            </div>
+          </div>
+
+          <div class="row rowSplit">
+            <div class="col">
+              <div class="tabs">
+                <button id="tabVideo" class="tab tabActive" type="button">Video</button>
+                <button id="tabAudio" class="tab" type="button">Audio</button>
+              </div>
+
+              <div id="optionsVideo" class="optionsList"></div>
+              <div id="optionsAudio" class="optionsList hidden"></div>
+
+              <div id="playlistList" class="playlistList hidden"></div>
+
+              <!-- Legacy select kept (hidden) -->
+              <select id="qualitySelect" class="select hidden" disabled>
+                <option value="auto">auto</option>
+              </select>
+              <div id="videoMeta" class="meta hidden"></div>
+            </div>
+            <div class="col colActions">
+              <button id="downloadBtn" class="btn hidden" type="button" disabled>Download</button>
+              <div id="statusLine" class="status"></div>
+            </div>
+          </div>
+
+          <div id="errorBox" class="error hidden"></div>
+        </section>
+
+        <footer class="footer">
+          <p class="fineprint">
+            Use only for content you own rights to and follow YouTube ToS.
+          </p>
+        </footer>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
